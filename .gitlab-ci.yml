@@ -1,0 +1,25 @@
+stages: 
+    - build
+    - deploy 
+    - checklog
+
+build:
+    stage: build
+    image: node:latest
+    before_script:
+    - echo "Chuyển vào thư mục backend nếu tồn tại"
+    - test -d backend && cd backend || echo "Thư mục backend không tồn tại"
+    cache:
+        paths:
+        - node_modules/
+    script: 
+        - whoami
+        - pwd
+        - ls
+        #Build bebe
+        - echo "Start lint..."
+        - echo "Install tool..."
+        - npm install globals
+        - npm install -g eslint
+        - eslint *.js --fix
+        - echo "Lint done."
